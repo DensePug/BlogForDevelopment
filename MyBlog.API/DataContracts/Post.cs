@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MyBlog.API.DataContracts
 {
     public class Post
     {
-        public Post(string title, string imageUrl, string content, params string[] tags)
+        public Post(string title, string imageUrl, string content, string previewContent, params string[] tags)
         {
             Title = title;
             ImageUrl = imageUrl;
             Content = content;
             Tags = tags;
+            PreviewContent = previewContent;
             DateCreated = DateTime.Now;
+            LikeCount = 0;
+            DateLoggedInUserLiked = new List<long>();
         }
 
         public int Id { get; set; }
@@ -23,6 +27,12 @@ namespace MyBlog.API.DataContracts
 
         public string[] Tags { get; set; }
 
+        public string PreviewContent { get; set; }
+
         public DateTime DateCreated { get; set; }
+
+        public int LikeCount { get; set; }
+
+        public List<long> DateLoggedInUserLiked { get; set; } = new List<long>();
     }
 }

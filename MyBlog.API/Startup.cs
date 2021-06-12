@@ -39,6 +39,8 @@ namespace MyBlog.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyBlog.API v1"));
             }
 
+            app.UseCors(o => o.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

@@ -21,7 +21,7 @@ namespace MyBlog.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Context.Posts.ToList());
+            return Ok(Context.Posts.OrderByDescending(p => p.DateCreated).ToList());
         }
 
         [HttpGet("{id}")]
@@ -32,6 +32,39 @@ namespace MyBlog.API.Controllers
                 return NotFound();
 
             return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("like")]
+        public IActionResult Like(LikeRequest request)
+        {
+            Post postToLike = Context.Posts.FirstOrDefault(p => p.Id == request.PostId);
+            if (postToLike == null)
+                return NotFound();
+
+            if (postToLike.DateLoggedInUserLiked != null && postToLike.DateLoggedInUserLiked.Contains(request.DateUserLoggedInLiked))
+                return NoContent();
+
+            postToLike.LikeCount++;
+
+            if (postToLike.DateLoggedInUserLiked == null)
+                postToLike.DateLoggedInUserLiked = new List<long>();
+
+            postToLike.DateLoggedInUserLiked.Add(request.DateUserLoggedInLiked);
+
+            Context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("likeCount")]
+        public IActionResult GetLikeCount(int postId)
+        {
+            Post post = Context.Posts.FirstOrDefault(p => p.Id == postId);
+            if (post == null)
+                return NotFound();
+
+            return Ok(post.LikeCount);
         }
 
         [HttpPost]
