@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LikeRequest } from '../models/LikeRequest';
 import { Post } from '../models/post';
 import { TransportService } from '../transport.service';
@@ -10,7 +11,7 @@ import { TransportService } from '../transport.service';
 })
 export class PostListComponent implements OnInit {
 
-  constructor(private transport: TransportService) { }
+  constructor(private transport: TransportService, private route: ActivatedRoute, private router: Router) { }
 
   posts: Post[] = [];
   desc: boolean | null = null;
@@ -37,5 +38,9 @@ export class PostListComponent implements OnInit {
   order() {
     this.posts = this.posts.sort((first, second) => first.dateCreated < second.dateCreated ? (this.desc ? 1 : -1) : (this.desc ? -1 : 1));
     this.desc = !this.desc;
+  }
+
+  navigate(post: Post) {
+    this.router.navigate(['post'], { relativeTo: this.route, queryParams: {'id': post.id} })
   }
 }
