@@ -109,18 +109,5 @@ namespace MyBlog.API.Controllers
 
             return Ok(result);
         }
-
-        public void a()
-        {
-            b();
-        }
-
-        /// <summary>
-        /// Dima, be carefully - you don't consider DRY principle
-        /// </summary>
-        public void b()
-        {
-
-        }
     }
 }
