@@ -41,6 +41,6 @@ export class PostListComponent implements OnInit {
   }
 
   navigate(post: Post) {
-    this.router.navigate(['post'], { relativeTo: this.route, queryParams: {'id': post.id} })
+    this.router.navigate(['post'], { queryParams: {'id': post.id} })
   }
 }
