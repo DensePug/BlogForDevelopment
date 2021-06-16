@@ -16,4 +16,8 @@ export class NavComponent implements OnInit {
   toList() {
     this.route.navigate(['post-list']);
   }
+
+  toContacts() {
+    this.route.navigate(['contacts']);
+  }
 }
