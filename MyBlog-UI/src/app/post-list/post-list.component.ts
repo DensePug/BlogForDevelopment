@@ -13,7 +13,7 @@ export class PostListComponent implements OnInit {
 
   constructor(private transport: TransportService, private route: ActivatedRoute, private router: Router) { }
 
-  posts: Post[] = [];
+  posts: Post[] | null | undefined = null;
   desc: boolean | null = null;
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class PostListComponent implements OnInit {
   }
 
   order() {
-    this.posts = this.posts.sort((first, second) => first.dateCreated < second.dateCreated ? (this.desc ? 1 : -1) : (this.desc ? -1 : 1));
+    this.posts = this.posts?.sort((first, second) => first.dateCreated < second.dateCreated ? (this.desc ? 1 : -1) : (this.desc ? -1 : 1));
     this.desc = !this.desc;
   }
 
