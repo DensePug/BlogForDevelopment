@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ContactsComponent } from './contacts/contacts.component'
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   declarations: [

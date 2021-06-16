@@ -4,6 +4,7 @@ using MyBlog.API.DataContracts;
 using MyBlog.API.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace MyBlog.API.Controllers
 {
@@ -19,9 +20,10 @@ namespace MyBlog.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int postCount = 10, int page = 1)
         {
-            return Ok(Context.Posts.OrderByDescending(p => p.DateCreated).ToList());
+            var pageCount = (int)Math.Ceiling((decimal)(Context.Posts.Count() / postCount));
+            return Ok(new PostsResponse { pageCount = pageCount, Posts = Context.Posts.OrderByDescending(p => p.DateCreated).Skip((page - 1) * postCount).Take(postCount).ToArray() });
         }
 
         [HttpGet("{id}")]

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LikeRequest } from '../models/LikeRequest';
 import { Post } from '../models/post';
+import { PostResponse } from '../models/PostResponse';
 import { TransportService } from '../transport.service';
 
 @Component({
@@ -14,12 +15,14 @@ export class PostListComponent implements OnInit {
   constructor(private transport: TransportService, private route: ActivatedRoute, private router: Router) { }
 
   posts: Post[] | null | undefined = null;
+  pageCount: number | undefined;
   desc: boolean | null = null;
 
   ngOnInit(): void {
     this.transport.get('api/Posts').subscribe((response) => {
-      const posts = <Post[]>response;
-      this.posts = posts;
+      const postResponse = <PostResponse>response;
+      this.posts = postResponse?.posts;
+      this.pageCount = postResponse?.pageCount;
     })
   }
 

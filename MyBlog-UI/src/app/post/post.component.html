@@ -1,3 +1,4 @@
+<div *ngIf="post == null"><mat-progress-spinner class="progress_spinner" diameter="200" color="primary" mode="indeterminate"></mat-progress-spinner></div>
 <h1>{{post?.title}}</h1>
 <div><img class="img-fluid" src="{{post?.imageUrl}}"></div>
 <div>
